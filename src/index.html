@@ -728,15 +728,15 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Sending...';
 
-                fetch('https://formsubmit.co/ajax/shazadladha@gmail.com', {
+                fetch('https://formspree.io/f/xqewqbbq', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify({
                         email: form.email.value,
-                        description: form.description.value || 'No description provided'
+                        message: form.description.value || 'No description provided'
                     })
                 })
-                .then(r => r.json())
+                .then(r => { if (!r.ok) throw new Error(); return r.json(); })
                 .then(() => {
                     form.reset();
                     successEl.classList.remove('hidden');
