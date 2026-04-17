@@ -377,7 +377,7 @@
         <!-- GROWTH — Infinite Stream Phase -->
         <section id="growth" class="h-[200vh] w-full relative">
             <div class="sticky top-0 h-screen w-full flex flex-col justify-center items-center pointer-events-none">
-                <h2 class="text-6xl md:text-9xl font-black tracking-[-0.05em] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-transparent opacity-0 scale-50 transition-all duration-1000" id="growth-text">
+                <h2 class="text-[11vw] md:text-9xl font-black tracking-[-0.05em] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-transparent opacity-0 scale-50 transition-all duration-1000" id="growth-text">
                     UNSTOPPABLE
                 </h2>
                 <div class="mt-8 px-6 py-2 rounded-full border border-white/[0.15] bg-black/40 backdrop-blur-md opacity-0 transition-opacity duration-700 delay-300" id="growth-badge">
@@ -436,7 +436,7 @@
 
         // --- CONFIG ---
         const CONFIG = {
-            particleCount: 45000,
+            particleCount: window.innerWidth < 768 ? 15000 : 45000,
             colors: {
                 cyan: new THREE.Color('#00f0ff'),
                 magenta: new THREE.Color('#ff0055')
