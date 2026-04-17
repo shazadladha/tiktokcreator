@@ -103,7 +103,7 @@
             bottom: calc(100% + 12px);
             left: 50%;
             transform: translateX(-50%) translateY(8px);
-            width: 320px;
+            width: min(320px, calc(100vw - 3rem));
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
@@ -198,8 +198,6 @@
 
         <!-- HERO — Cloud Phase -->
         <section id="hero" class="h-screen w-full flex flex-col justify-center items-center px-6 relative">
-            <!-- Radial vignette to dim particles behind text -->
-            <div class="absolute inset-0 z-10" style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.5) 40%, transparent 70%)"></div>
             <div class="text-center space-y-5 max-w-2xl relative z-20">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm">
                     <iconify-icon icon="solar:videocamera-record-bold" class="text-cyan-400" width="14"></iconify-icon>
@@ -231,8 +229,16 @@
         </section>
 
         <!-- RESULTS — Sphere Phase -->
-        <section id="results" class="h-[120vh] w-full flex items-center justify-between px-6 md:px-24 relative">
-            <div class="glass-panel p-8 rounded-xl max-w-sm w-full space-y-5">
+        <section id="results" class="min-h-screen md:h-[120vh] w-full flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-24 gap-10 md:gap-0 py-24 md:py-0 relative">
+            <!-- CTA text — top on mobile, right on desktop -->
+            <div id="results-cta" class="max-w-md w-full text-center md:text-right md:order-2" style="opacity: 0; transform: translateY(30px);">
+                <h3 class="text-2xl md:text-3xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Get customers focusing on
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">your products</span>
+                </h3>
+            </div>
+            <!-- Glass panel — below on mobile, left on desktop -->
+            <div class="glass-panel p-6 md:p-8 rounded-xl max-w-sm w-full space-y-5 md:order-1">
                 <div class="flex items-center gap-3 mb-1">
                     <span class="flex h-2 w-2 relative">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -281,39 +287,19 @@
                     </div>
                 </div>
             </div>
-            <!-- Right-side CTA text (desktop) -->
-            <div id="results-cta" class="max-w-md w-full text-right hidden md:block" style="opacity: 0; transform: translate(40px, 40px);">
-                <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-                    Get customers focusing on
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">your products</span>
-                </h3>
-            </div>
-            <!-- Right-side CTA text (mobile) -->
-            <div id="results-cta-mobile" class="absolute bottom-16 left-6 right-6 md:hidden text-center" style="opacity: 0; transform: translateY(30px);">
-                <h3 class="text-2xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-                    Get customers focusing on
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">your products</span>
-                </h3>
-            </div>
         </section>
 
         <!-- SERVICES — Grid Phase -->
-        <section id="services" class="h-[120vh] w-full flex items-center justify-between px-6 md:px-24 relative">
-            <!-- Left-side CTA text (desktop) -->
-            <div id="services-cta" class="max-w-md w-full text-left hidden md:block" style="opacity: 0; transform: translate(-40px, 40px);">
-                <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+        <section id="services" class="min-h-screen md:h-[120vh] w-full flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-24 gap-10 md:gap-0 py-24 md:py-0 relative">
+            <!-- CTA text — top on mobile, left on desktop -->
+            <div id="services-cta" class="max-w-md w-full text-center md:text-left" style="opacity: 0; transform: translateY(30px);">
+                <h3 class="text-2xl md:text-3xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
                     Convert shoppers interest into
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">purchase decisions</span>
                 </h3>
             </div>
-            <!-- Left-side CTA text (mobile) -->
-            <div id="services-cta-mobile" class="absolute bottom-16 left-6 right-6 md:hidden text-center" style="opacity: 0; transform: translateY(30px);">
-                <h3 class="text-2xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-                    Convert shoppers interest into
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">purchase decisions</span>
-                </h3>
-            </div>
-            <div class="glass-panel p-8 rounded-xl max-w-sm w-full space-y-6">
+            <!-- Glass panel — below on mobile, right on desktop -->
+            <div class="glass-panel p-6 md:p-8 rounded-xl max-w-sm w-full space-y-6">
                 <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
                     <h2 class="text-lg font-semibold tracking-tight">Proven Results</h2>
                     <iconify-icon icon="solar:graph-up-linear" class="text-fuchsia-400" width="20"></iconify-icon>
@@ -344,41 +330,10 @@
         </section>
 
         <!-- VERTICAL GRID — Wall Phase -->
-        <section id="vertical-grid" class="h-[120vh] w-full flex items-center justify-between px-6 md:px-24 relative">
-            <!-- Left-side vertical timeline (desktop) -->
-            <div id="vertical-grid-steps" class="max-w-xs w-full hidden md:block" style="opacity: 0; transform: translate(-40px, 40px);">
-                <div class="relative pl-8">
-                    <!-- Timeline line -->
-                    <div class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/60 via-fuchsia-500/40 to-cyan-500/20"></div>
-
-                    <!-- Step 1: Build -->
-                    <div class="relative pb-10">
-                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-cyan-400 bg-cyan-400/20 shadow-[0_0_12px_rgba(0,240,255,0.4)]"></div>
-                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-cyan-400">Step 01</span>
-                        <h4 class="text-xl font-bold tracking-tight text-white mt-1">Build</h4>
-                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We craft scroll-stopping content tailored to your brand and audience.</p>
-                    </div>
-
-                    <!-- Step 2: Manage -->
-                    <div class="relative pb-10">
-                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-fuchsia-400 bg-fuchsia-400/20 shadow-[0_0_12px_rgba(255,0,85,0.4)]"></div>
-                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-fuchsia-400">Step 02</span>
-                        <h4 class="text-xl font-bold tracking-tight text-white mt-1">Manage</h4>
-                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We handle creators, production, and posting so you can focus on your business.</p>
-                    </div>
-
-                    <!-- Step 3: Grow -->
-                    <div class="relative">
-                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-emerald-400 bg-emerald-400/20 shadow-[0_0_12px_rgba(52,211,153,0.4)]"></div>
-                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-emerald-400">Step 03</span>
-                        <h4 class="text-xl font-bold tracking-tight text-white mt-1">Grow</h4>
-                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We optimize performance and scale what works to maximize your ROAS.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="vertical-grid-cta" class="max-w-md w-full text-right hidden md:block" style="opacity: 0; transform: translate(40px, 40px);">
-                <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+        <section id="vertical-grid" class="min-h-screen md:h-[120vh] w-full flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-24 gap-10 md:gap-0 py-24 md:py-0 relative">
+            <!-- CTA text — top on mobile, right on desktop -->
+            <div id="vertical-grid-cta" class="max-w-md w-full text-center md:text-right md:order-2" style="opacity: 0; transform: translateY(30px);">
+                <h3 class="text-2xl md:text-3xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
                     Scale without
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">limits</span>
                 </h3>
@@ -386,26 +341,36 @@
                     From strategy to production to optimization — a complete content engine built for growth.
                 </p>
             </div>
-            <!-- Mobile: steps + CTA stacked -->
-            <div id="vertical-grid-cta-mobile" class="absolute bottom-16 left-6 right-6 md:hidden text-center" style="opacity: 0; transform: translateY(30px);">
-                <div class="flex justify-center gap-6 mb-6">
-                    <div class="text-center">
-                        <div class="w-3 h-3 rounded-full border-2 border-cyan-400 bg-cyan-400/20 mx-auto mb-1.5"></div>
-                        <span class="text-[9px] font-bold tracking-wider uppercase text-cyan-400">Build</span>
+            <!-- Vertical timeline — below on mobile, left on desktop -->
+            <div id="vertical-grid-steps" class="glass-panel rounded-xl p-6 md:p-8 max-w-xs w-full md:order-1" style="opacity: 0; transform: translateY(30px);">
+                <div class="relative pl-8">
+                    <!-- Timeline line -->
+                    <div class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/60 via-fuchsia-500/40 to-cyan-500/20"></div>
+
+                    <!-- Step 1: Build -->
+                    <div class="relative pb-8 md:pb-10">
+                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-cyan-400 bg-cyan-400/20 shadow-[0_0_12px_rgba(0,240,255,0.4)]"></div>
+                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-cyan-400">Step 01</span>
+                        <h4 class="text-lg md:text-xl font-bold tracking-tight text-white mt-1">Build</h4>
+                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We craft scroll-stopping content tailored to your brand and audience.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="w-3 h-3 rounded-full border-2 border-fuchsia-400 bg-fuchsia-400/20 mx-auto mb-1.5"></div>
-                        <span class="text-[9px] font-bold tracking-wider uppercase text-fuchsia-400">Manage</span>
+
+                    <!-- Step 2: Manage -->
+                    <div class="relative pb-8 md:pb-10">
+                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-fuchsia-400 bg-fuchsia-400/20 shadow-[0_0_12px_rgba(255,0,85,0.4)]"></div>
+                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-fuchsia-400">Step 02</span>
+                        <h4 class="text-lg md:text-xl font-bold tracking-tight text-white mt-1">Manage</h4>
+                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We handle creators, production, and posting so you can focus on your business.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="w-3 h-3 rounded-full border-2 border-emerald-400 bg-emerald-400/20 mx-auto mb-1.5"></div>
-                        <span class="text-[9px] font-bold tracking-wider uppercase text-emerald-400">Grow</span>
+
+                    <!-- Step 3: Grow -->
+                    <div class="relative">
+                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-emerald-400 bg-emerald-400/20 shadow-[0_0_12px_rgba(52,211,153,0.4)]"></div>
+                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-emerald-400">Step 03</span>
+                        <h4 class="text-lg md:text-xl font-bold tracking-tight text-white mt-1">Grow</h4>
+                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We optimize performance and scale what works to maximize your ROAS.</p>
                     </div>
                 </div>
-                <h3 class="text-2xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-                    Scale without
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">limits</span>
-                </h3>
             </div>
         </section>
 
@@ -477,9 +442,9 @@
                 magenta: new THREE.Color('#ff0055')
             },
             bloom: {
-                strength: 1.4,
-                radius: 0.6,
-                threshold: 0.05
+                strength: 0.8,
+                radius: 0.5,
+                threshold: 0.15
             },
             tunnelDepth: 800
         };
@@ -676,7 +641,7 @@
 
                     float strength = pow(1.0 - d * 2.0, 2.0);
                     vec3 finalColor = mix(uColorCyan, uColorMagenta, vColor.x);
-                    finalColor *= 2.0;
+                    finalColor *= 1.2;
 
                     gl_FragColor = vec4(finalColor, vAlpha * strength);
                 }
@@ -812,23 +777,8 @@
             }
         });
 
-        // Results CTA text — slides in from bottom-right, slightly before glass panel is centered
+        // Results CTA text — slides up into view
         gsap.fromTo('#results-cta',
-            { opacity: 0, x: 40, y: 40 },
-            {
-                opacity: 1, x: 0, y: 0,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: "#results",
-                    start: "top 80%",
-                    end: "top 40%",
-                    scrub: 1
-                }
-            }
-        );
-
-        // Mobile CTA text — slides up from bottom
-        gsap.fromTo('#results-cta-mobile',
             { opacity: 0, y: 30 },
             {
                 opacity: 1, y: 0,
@@ -842,23 +792,8 @@
             }
         );
 
-        // Services CTA text — slides in from bottom-left
+        // Services CTA text — slides up into view
         gsap.fromTo('#services-cta',
-            { opacity: 0, x: -40, y: 40 },
-            {
-                opacity: 1, x: 0, y: 0,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: "#services",
-                    start: "top 80%",
-                    end: "top 40%",
-                    scrub: 1
-                }
-            }
-        );
-
-        // Mobile Services CTA text — slides up from bottom
-        gsap.fromTo('#services-cta-mobile',
             { opacity: 0, y: 30 },
             {
                 opacity: 1, y: 0,
@@ -887,11 +822,11 @@
               .to(points.rotation, { x: 0.3, duration: 1 }, 0)
               .to(camera.position, { z: 60, y: 10, duration: 1 }, 0);
 
-        // Vertical Grid steps timeline — slides in from left
+        // Vertical Grid steps timeline — slides up into view
         gsap.fromTo('#vertical-grid-steps',
-            { opacity: 0, x: -40, y: 40 },
+            { opacity: 0, y: 30 },
             {
-                opacity: 1, x: 0, y: 0,
+                opacity: 1, y: 0,
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: "#vertical-grid",
@@ -902,23 +837,8 @@
             }
         );
 
-        // Vertical Grid CTA text — slides in from right
+        // Vertical Grid CTA text — slides up into view
         gsap.fromTo('#vertical-grid-cta',
-            { opacity: 0, x: 40, y: 40 },
-            {
-                opacity: 1, x: 0, y: 0,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: "#vertical-grid",
-                    start: "top 80%",
-                    end: "top 40%",
-                    scrub: 1
-                }
-            }
-        );
-
-        // Mobile Vertical Grid CTA text
-        gsap.fromTo('#vertical-grid-cta-mobile',
             { opacity: 0, y: 30 },
             {
                 opacity: 1, y: 0,
