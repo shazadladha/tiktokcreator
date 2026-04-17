@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop the Scroll — TikTok Content That Converts</title>
+    <meta name="description" content="We create high-converting TikTok content for ecommerce brands. UGC production, creator partnerships, and performance optimization. Stop the scroll. Start selling.">
+    <meta property="og:title" content="Stop the Scroll — TikTok Content That Converts">
+    <meta property="og:description" content="We create high-converting TikTok content for ecommerce brands. Stop the scroll. Start selling.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#050505">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #00f0ff, #ff0055);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .book-form-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 320px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 60;
+        }
+        .book-form-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .book-form-dropdown input,
+        .book-form-dropdown textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-family: 'Inter', system-ui, sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .book-form-dropdown input:focus,
+        .book-form-dropdown textarea:focus {
+            border-color: rgba(0,240,255,0.4);
+        }
+        .book-form-dropdown input::placeholder,
+        .book-form-dropdown textarea::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        .growth-form-popup {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            width: 320px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 60;
+        }
+        .growth-form-popup.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .growth-form-popup input,
+        .growth-form-popup textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-family: 'Inter', system-ui, sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .growth-form-popup input:focus,
+        .growth-form-popup textarea:focus {
+            border-color: rgba(0,240,255,0.4);
+        }
+        .growth-form-popup input::placeholder,
+        .growth-form-popup textarea::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500/30 selection:text-cyan-100">
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[55] bg-[#050505]/98 backdrop-blur-2xl flex-col items-center justify-center gap-6 hidden">
+        <button id="mobile-menu-close" class="absolute top-5 right-6 text-white/60 hover:text-white transition-colors">
+            <iconify-icon icon="solar:close-circle-linear" width="28"></iconify-icon>
+        </button>
+        <a href="#hero" class="text-xl font-light tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors">Home</a>
+        <a href="#results" class="text-xl font-light tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors">Services</a>
+        <a href="#services" class="text-xl font-light tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors">Results</a>
+        <a href="#vertical-grid" class="text-xl font-light tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors">Process</a>
+        <a href="#contact" class="text-xl font-light tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors">Contact</a>
+        <div class="mt-6 w-72 mx-auto">
+            <form id="mobile-book-call-submit" class="space-y-3">
+                <h4 class="text-sm font-semibold tracking-tight text-white text-center">Get In Touch</h4>
+                <input type="email" name="email" required placeholder="Your email" class="w-full px-3 py-2 rounded-md text-xs bg-white/5 border border-white/10 text-white outline-none focus:border-cyan-500/40 placeholder:text-white/30" style="font-family: Inter, system-ui, sans-serif;">
+                <textarea name="description" placeholder="Brief description (optional)" rows="3" class="w-full px-3 py-2 rounded-md text-xs resize-none bg-white/5 border border-white/10 text-white outline-none focus:border-cyan-500/40 placeholder:text-white/30" style="font-family: Inter, system-ui, sans-serif;"></textarea>
+                <button type="submit" class="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity">Submit</button>
+                <p id="mobile-book-call-success" class="text-xs text-emerald-400 text-center hidden">Submitted! We'll be in touch.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- WebGL Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-10 py-5 mix-blend-difference text-white/90">
+        <a href="#hero" class="flex items-center gap-2.5">
+            <div class="w-3.5 h-3.5 bg-gradient-to-br from-cyan-400 to-fuchsia-500 rounded-[3px]"></div>
+            <span class="text-[11px] font-bold tracking-[0.15em] uppercase">Stop the Scroll</span>
+        </a>
+        <div class="hidden md:flex gap-8 text-[11px] font-medium tracking-[0.1em] uppercase text-white/40">
+            <a href="#results" class="nav-link hover:text-white transition-colors cursor-pointer">Services</a>
+            <a href="#services" class="nav-link hover:text-white transition-colors cursor-pointer">Results</a>
+            <a href="#vertical-grid" class="nav-link hover:text-white transition-colors cursor-pointer">Process</a>
+            <a href="#contact" class="nav-link hover:text-white transition-colors cursor-pointer">Contact</a>
+        </div>
+        <div class="flex items-center gap-4 relative">
+            <button id="book-call-btn" class="hidden md:flex glass-panel px-4 py-2 rounded-md text-[11px] font-medium tracking-wide hover:bg-white/5 transition-colors items-center gap-2 cursor-pointer">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
+                Get In Touch
+            </button>
+            <div id="book-call-form" class="book-form-dropdown glass-panel rounded-xl p-5">
+                <form id="book-call-submit" class="space-y-3">
+                    <h4 class="text-sm font-semibold tracking-tight text-white">Get In Touch</h4>
+                    <input type="email" name="email" required placeholder="Your email" class="w-full px-3 py-2 rounded-md text-xs">
+                    <textarea name="description" placeholder="Brief description (optional)" rows="3" class="w-full px-3 py-2 rounded-md text-xs resize-none"></textarea>
+                    <button type="submit" class="w-full py-2.5 rounded-md bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white text-xs font-semibold tracking-wide hover:opacity-90 transition-opacity">
+                        Submit
+                    </button>
+                    <p id="book-call-success" class="text-[10px] text-emerald-400 text-center hidden">Submitted! We'll be in touch.</p>
+                </form>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-white/70 hover:text-white transition-colors">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="22"></iconify-icon>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Scroll Content -->
+    <main class="relative z-10 w-full">
+
+        <!-- HERO — Cloud Phase -->
+        <section id="hero" class="h-screen w-full flex flex-col justify-center items-center px-6 relative">
+            <!-- Radial vignette to dim particles behind text -->
+            <div class="absolute inset-0 z-10" style="background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.5) 40%, transparent 70%)"></div>
+            <div class="text-center space-y-5 max-w-2xl relative z-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm">
+                    <iconify-icon icon="solar:videocamera-record-bold" class="text-cyan-400" width="14"></iconify-icon>
+                    <span class="text-[10px] font-medium tracking-[0.15em] uppercase text-cyan-300/70">
+                        TikTok Content That Converts
+                    </span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-extrabold tracking-[-0.04em] text-white pb-2 leading-[0.9] drop-shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+                    Stop the Scroll.
+                </h1>
+                <p class="text-lg md:text-xl text-white/80 max-w-lg mx-auto leading-relaxed font-medium drop-shadow-[0_0_20px_rgba(0,0,0,0.9)]">
+                    We create TikTok content for ecommerce brands<br class="hidden md:block">
+                    that turns viewers into buyers.
+                </p>
+                <div class="flex items-center gap-3 justify-center pt-2">
+                    <div class="flex -space-x-1.5">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 border-2 border-[#050505]"></div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-fuchsia-400 to-pink-500 border-2 border-[#050505]"></div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 border-2 border-[#050505]"></div>
+                        <div class="w-6 h-6 rounded-full bg-white/10 border-2 border-[#050505] flex items-center justify-center text-[8px] font-bold text-white/50">+</div>
+                    </div>
+                    <span class="text-xs text-white">Trusted by 200+ ecommerce brands</span>
+                </div>
+            </div>
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 animate-bounce">
+                <span class="text-[10px] tracking-[0.2em] uppercase text-white/50">Scroll to Explore</span>
+                <iconify-icon icon="solar:mouse-minimalistic-linear" width="18" class="text-white/60"></iconify-icon>
+            </div>
+        </section>
+
+        <!-- RESULTS — Sphere Phase -->
+        <section id="results" class="h-[120vh] w-full flex items-center justify-between px-6 md:px-24 relative">
+            <div class="glass-panel p-8 rounded-xl max-w-sm w-full space-y-5">
+                <div class="flex items-center gap-3 mb-1">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                    </span>
+                    <h2 class="text-lg font-semibold tracking-tight">Full-Service TikTok Content</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:chart-2-linear" class="text-cyan-400 mt-0.5 shrink-0" width="16"></iconify-icon>
+                        <div>
+                            <h3 class="text-sm font-medium text-white">Content Strategy</h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">Trend analysis, content calendars, and audience research for your niche.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:videocamera-record-linear" class="text-fuchsia-400 mt-0.5 shrink-0" width="16"></iconify-icon>
+                        <div>
+                            <h3 class="text-sm font-medium text-white">UGC Production</h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">Authentic, creator-style video content produced at scale.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:users-group-rounded-linear" class="text-emerald-400 mt-0.5 shrink-0" width="16"></iconify-icon>
+                        <div>
+                            <h3 class="text-sm font-medium text-white">Creator Network</h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">5,000+ vetted creators across every product category.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <iconify-icon icon="solar:tuning-2-linear" class="text-amber-400 mt-0.5 shrink-0" width="16"></iconify-icon>
+                        <div>
+                            <h3 class="text-sm font-medium text-white">Performance Optimization</h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">A/B testing, analytics, and iterative improvement for maximum ROAS.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-3 border-t border-white/5 flex justify-between">
+                    <div class="flex items-center gap-1.5 text-[10px] text-slate-600">
+                        <iconify-icon icon="solar:clock-circle-linear" width="12"></iconify-icon>
+                        <span>48hr Turnaround</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-[10px] text-slate-600">
+                        <iconify-icon icon="solar:smartphone-2-linear" width="12"></iconify-icon>
+                        <span>All TikTok Formats</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Right-side CTA text (desktop) -->
+            <div id="results-cta" class="max-w-md w-full text-right hidden md:block" style="opacity: 0; transform: translate(40px, 40px);">
+                <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Get customers focusing on
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">your products</span>
+                </h3>
+            </div>
+            <!-- Right-side CTA text (mobile) -->
+            <div id="results-cta-mobile" class="absolute bottom-16 left-6 right-6 md:hidden text-center" style="opacity: 0; transform: translateY(30px);">
+                <h3 class="text-2xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Get customers focusing on
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">your products</span>
+                </h3>
+            </div>
+        </section>
+
+        <!-- SERVICES — Grid Phase -->
+        <section id="services" class="h-[120vh] w-full flex items-center justify-between px-6 md:px-24 relative">
+            <!-- Left-side CTA text (desktop) -->
+            <div id="services-cta" class="max-w-md w-full text-left hidden md:block" style="opacity: 0; transform: translate(-40px, 40px);">
+                <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Convert shoppers interest into
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">purchase decisions</span>
+                </h3>
+            </div>
+            <!-- Left-side CTA text (mobile) -->
+            <div id="services-cta-mobile" class="absolute bottom-16 left-6 right-6 md:hidden text-center" style="opacity: 0; transform: translateY(30px);">
+                <h3 class="text-2xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Convert shoppers interest into
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">purchase decisions</span>
+                </h3>
+            </div>
+            <div class="glass-panel p-8 rounded-xl max-w-sm w-full space-y-6">
+                <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
+                    <h2 class="text-lg font-semibold tracking-tight">Proven Results</h2>
+                    <iconify-icon icon="solar:graph-up-linear" class="text-fuchsia-400" width="20"></iconify-icon>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5">
+                        <div class="text-[9px] text-slate-500 uppercase tracking-wider">Views Generated</div>
+                        <div class="text-xl font-bold tracking-tight mt-1">500M+</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5">
+                        <div class="text-[9px] text-slate-500 uppercase tracking-wider">Avg. ROAS</div>
+                        <div class="text-xl font-bold tracking-tight mt-1 text-emerald-400">12x</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5">
+                        <div class="text-[9px] text-slate-500 uppercase tracking-wider">Brands Scaled</div>
+                        <div class="text-xl font-bold tracking-tight mt-1">200+</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5">
+                        <div class="text-[9px] text-slate-500 uppercase tracking-wider">Videos Created</div>
+                        <div class="text-xl font-bold tracking-tight mt-1 text-cyan-400">10K+</div>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Our content doesn't just get views — it drives revenue. Every video is
+                    engineered to convert scrollers into customers.
+                </p>
+            </div>
+        </section>
+
+        <!-- VERTICAL GRID — Wall Phase -->
+        <section id="vertical-grid" class="h-[120vh] w-full flex items-center justify-between px-6 md:px-24 relative">
+            <!-- Left-side vertical timeline (desktop) -->
+            <div id="vertical-grid-steps" class="max-w-xs w-full hidden md:block" style="opacity: 0; transform: translate(-40px, 40px);">
+                <div class="relative pl-8">
+                    <!-- Timeline line -->
+                    <div class="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/60 via-fuchsia-500/40 to-cyan-500/20"></div>
+
+                    <!-- Step 1: Build -->
+                    <div class="relative pb-10">
+                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-cyan-400 bg-cyan-400/20 shadow-[0_0_12px_rgba(0,240,255,0.4)]"></div>
+                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-cyan-400">Step 01</span>
+                        <h4 class="text-xl font-bold tracking-tight text-white mt-1">Build</h4>
+                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We craft scroll-stopping content tailored to your brand and audience.</p>
+                    </div>
+
+                    <!-- Step 2: Manage -->
+                    <div class="relative pb-10">
+                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-fuchsia-400 bg-fuchsia-400/20 shadow-[0_0_12px_rgba(255,0,85,0.4)]"></div>
+                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-fuchsia-400">Step 02</span>
+                        <h4 class="text-xl font-bold tracking-tight text-white mt-1">Manage</h4>
+                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We handle creators, production, and posting so you can focus on your business.</p>
+                    </div>
+
+                    <!-- Step 3: Grow -->
+                    <div class="relative">
+                        <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full border-2 border-emerald-400 bg-emerald-400/20 shadow-[0_0_12px_rgba(52,211,153,0.4)]"></div>
+                        <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-emerald-400">Step 03</span>
+                        <h4 class="text-xl font-bold tracking-tight text-white mt-1">Grow</h4>
+                        <p class="text-xs text-white/40 mt-1.5 leading-relaxed">We optimize performance and scale what works to maximize your ROAS.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="vertical-grid-cta" class="max-w-md w-full text-right hidden md:block" style="opacity: 0; transform: translate(40px, 40px);">
+                <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Scale without
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">limits</span>
+                </h3>
+                <p class="text-sm md:text-base text-white/50 mt-4 leading-relaxed">
+                    From strategy to production to optimization — a complete content engine built for growth.
+                </p>
+            </div>
+            <!-- Mobile: steps + CTA stacked -->
+            <div id="vertical-grid-cta-mobile" class="absolute bottom-16 left-6 right-6 md:hidden text-center" style="opacity: 0; transform: translateY(30px);">
+                <div class="flex justify-center gap-6 mb-6">
+                    <div class="text-center">
+                        <div class="w-3 h-3 rounded-full border-2 border-cyan-400 bg-cyan-400/20 mx-auto mb-1.5"></div>
+                        <span class="text-[9px] font-bold tracking-wider uppercase text-cyan-400">Build</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-3 h-3 rounded-full border-2 border-fuchsia-400 bg-fuchsia-400/20 mx-auto mb-1.5"></div>
+                        <span class="text-[9px] font-bold tracking-wider uppercase text-fuchsia-400">Manage</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-3 h-3 rounded-full border-2 border-emerald-400 bg-emerald-400/20 mx-auto mb-1.5"></div>
+                        <span class="text-[9px] font-bold tracking-wider uppercase text-emerald-400">Grow</span>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-extrabold tracking-[-0.03em] leading-[1.1] text-white drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+                    Scale without
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500">limits</span>
+                </h3>
+            </div>
+        </section>
+
+        <!-- GROWTH — Infinite Stream Phase -->
+        <section id="growth" class="h-[200vh] w-full relative">
+            <div class="sticky top-0 h-screen w-full flex flex-col justify-center items-center pointer-events-none">
+                <h2 class="text-6xl md:text-9xl font-black tracking-[-0.05em] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-transparent opacity-0 scale-50 transition-all duration-1000" id="growth-text">
+                    UNSTOPPABLE
+                </h2>
+                <div class="mt-8 px-6 py-2 rounded-full border border-white/[0.15] bg-black/40 backdrop-blur-md opacity-0 transition-opacity duration-700 delay-300" id="growth-badge">
+                    <span class="text-xs font-medium tracking-[0.2em] uppercase text-cyan-300/80">
+                        Your Growth, Amplified
+                    </span>
+                </div>
+                <div class="mt-10 pointer-events-auto opacity-0 transition-opacity duration-700 delay-500 relative flex flex-col items-center" id="growth-cta">
+                    <button id="growth-book-btn" class="group relative px-8 py-3.5 rounded-full cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,240,255,0.25)]">
+                        <span class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500"></span>
+                        <span class="absolute inset-[1px] rounded-full bg-[#0a0a0a]/80 backdrop-blur-md transition-colors duration-300 group-hover:bg-[#0a0a0a]/60"></span>
+                        <span class="relative flex items-center gap-2.5 text-sm font-semibold tracking-wide text-white">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(0,240,255,0.6)]"></span>
+                            Get In Touch
+                        </span>
+                    </button>
+                    <div id="growth-book-form" class="growth-form-popup glass-panel rounded-xl p-5">
+                        <form id="growth-book-submit" class="space-y-3">
+                            <h4 class="text-sm font-semibold tracking-tight text-white">Get In Touch</h4>
+                            <input type="email" name="email" required placeholder="Your email" class="w-full px-3 py-2 rounded-md text-xs">
+                            <textarea name="description" placeholder="Brief description (optional)" rows="3" class="w-full px-3 py-2 rounded-md text-xs resize-none"></textarea>
+                            <button type="submit" class="w-full py-2.5 rounded-md bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white text-xs font-semibold tracking-wide hover:opacity-90 transition-opacity">
+                                Submit
+                            </button>
+                            <p id="growth-book-success" class="text-[10px] text-emerald-400 text-center hidden">Submitted! We'll be in touch.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- MODULES -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "gsap": "https://unpkg.com/gsap@3.12.5/index.js",
+                "gsap/ScrollTrigger": "https://unpkg.com/gsap@3.12.5/ScrollTrigger.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import gsap from 'gsap';
+        import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // --- CONFIG ---
+        const CONFIG = {
+            particleCount: 45000,
+            colors: {
+                cyan: new THREE.Color('#00f0ff'),
+                magenta: new THREE.Color('#ff0055')
+            },
+            bloom: {
+                strength: 1.4,
+                radius: 0.6,
+                threshold: 0.05
+            },
+            tunnelDepth: 800
+        };
+
+        // --- SCENE SETUP ---
+        const canvasContainer = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x050505);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 0, 40);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
+        canvasContainer.appendChild(renderer.domElement);
+
+        // --- POST PROCESSING ---
+        const renderScene = new RenderPass(scene, camera);
+        const bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            CONFIG.bloom.strength,
+            CONFIG.bloom.radius,
+            CONFIG.bloom.threshold
+        );
+
+        const composer = new EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+
+        // --- GEOMETRY DATA ---
+        const count = CONFIG.particleCount;
+        const geometry = new THREE.BufferGeometry();
+
+        const posCloud = new Float32Array(count * 3);
+        const posSphere = new Float32Array(count * 3);
+        const posGrid = new Float32Array(count * 3);
+        const posTunnel = new Float32Array(count * 3);
+        const posVerticalGrid = new Float32Array(count * 3);
+        const sizes = new Float32Array(count);
+        const randoms = new Float32Array(count);
+
+        const goldenRatio = (1 + Math.sqrt(5)) / 2;
+        const angleIncrement = 2 * Math.PI * goldenRatio;
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+
+            // CLOUD
+            const r = 40 * Math.cbrt(Math.random());
+            const theta = Math.random() * 2 * Math.PI;
+            const phi = Math.acos(2 * Math.random() - 1);
+            posCloud[i3] = r * Math.sin(phi) * Math.cos(theta);
+            posCloud[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            posCloud[i3 + 2] = r * Math.cos(phi);
+
+            // SPHERE (Fibonacci)
+            const t = i / count;
+            const inc = Math.acos(1 - 2 * t);
+            const azimuth = angleIncrement * i;
+            const radius = 22;
+            posSphere[i3] = radius * Math.sin(inc) * Math.cos(azimuth);
+            posSphere[i3 + 1] = radius * Math.sin(inc) * Math.sin(azimuth);
+            posSphere[i3 + 2] = radius * Math.cos(inc);
+
+            // GRID
+            const gridWidth = 120;
+            const gridDepth = 120;
+            const gx = (Math.random() - 0.5) * gridWidth;
+            const gz = (Math.random() - 0.5) * gridDepth;
+            const gy = -15 + Math.sin(gx * 0.1) * Math.cos(gz * 0.1) * 2;
+            posGrid[i3] = gx;
+            posGrid[i3 + 1] = gy;
+            posGrid[i3 + 2] = gz;
+
+            // VERTICAL GRID (narrow column facing camera)
+            const vgWidth = 12;
+            const vgHeight = 60;
+            const vgx = (Math.random() - 0.5) * vgWidth;
+            const vgy = (Math.random() - 0.5) * vgHeight;
+            const vgz = Math.sin(vgx * 0.15) * Math.cos(vgy * 0.15) * 2;
+            posVerticalGrid[i3] = vgx;
+            posVerticalGrid[i3 + 1] = vgy;
+            posVerticalGrid[i3 + 2] = vgz;
+
+            // TUNNEL/STREAM
+            const spreadX = 150;
+            const spreadY = 100;
+            const spreadZ = CONFIG.tunnelDepth;
+            posTunnel[i3] = (Math.random() - 0.5) * spreadX;
+            posTunnel[i3 + 1] = (Math.random() - 0.5) * spreadY;
+            posTunnel[i3 + 2] = (Math.random() - 0.5) * spreadZ;
+
+            sizes[i] = Math.random();
+            randoms[i] = Math.random();
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(posCloud, 3));
+        geometry.setAttribute('aPosCloud', new THREE.BufferAttribute(posCloud, 3));
+        geometry.setAttribute('aPosSphere', new THREE.BufferAttribute(posSphere, 3));
+        geometry.setAttribute('aPosGrid', new THREE.BufferAttribute(posGrid, 3));
+        geometry.setAttribute('aPosTunnel', new THREE.BufferAttribute(posTunnel, 3));
+        geometry.setAttribute('aPosVerticalGrid', new THREE.BufferAttribute(posVerticalGrid, 3));
+        geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+        geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
+
+        // --- SHADER MATERIAL ---
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uMixSphere: { value: 0 },
+                uMixGrid: { value: 0 },
+                uMixVerticalGrid: { value: 0 },
+                uMixTunnelSpace: { value: 0 },
+                uTunnel: { value: 0 },
+                uTunnelSpeed: { value: 0 },
+                uColorCyan: { value: CONFIG.colors.cyan },
+                uColorMagenta: { value: CONFIG.colors.magenta },
+                uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+            },
+            vertexShader: `
+                uniform float uTime;
+                uniform float uMixSphere;
+                uniform float uMixGrid;
+                uniform float uMixVerticalGrid;
+                uniform float uMixTunnelSpace;
+                uniform float uTunnel;
+                uniform float uTunnelSpeed;
+
+                attribute vec3 aPosCloud;
+                attribute vec3 aPosSphere;
+                attribute vec3 aPosGrid;
+                attribute vec3 aPosVerticalGrid;
+                attribute vec3 aPosTunnel;
+                attribute float aSize;
+                attribute float aRandom;
+
+                varying vec3 vColor;
+                varying float vAlpha;
+
+                vec3 getBasePos() {
+                    vec3 pos = mix(aPosCloud, aPosSphere, uMixSphere);
+                    pos = mix(pos, aPosGrid, uMixGrid);
+                    pos = mix(pos, aPosVerticalGrid, uMixVerticalGrid);
+                    return pos;
+                }
+
+                void main() {
+                    vec3 basePos = getBasePos();
+                    vec3 finalPos = mix(basePos, aPosTunnel, uMixTunnelSpace);
+
+                    if (uTunnel > 0.0) {
+                        float zRange = 800.0;
+                        float speed = uTunnelSpeed * 50.0;
+                        float zOffset = uTime * speed + aRandom * 100.0;
+                        finalPos.z += zOffset;
+                        finalPos.z = mod(finalPos.z + zRange * 0.5, zRange) - zRange * 0.5;
+                    }
+
+                    if (uTunnel < 0.5) {
+                        finalPos.x += sin(uTime * 0.5 + aRandom * 10.0) * 0.5;
+                        finalPos.y += cos(uTime * 0.3 + aRandom * 20.0) * 0.5;
+                    }
+
+                    vec4 mvPosition = modelViewMatrix * vec4(finalPos, 1.0);
+                    gl_Position = projectionMatrix * mvPosition;
+                    gl_PointSize = (4.0 * aSize + 1.0) * (100.0 / -mvPosition.z);
+
+                    float colorMix = sin(finalPos.x * 0.05 + uTime * 0.2) * 0.5 + 0.5;
+                    if (uTunnel > 0.5) {
+                        colorMix = aRandom;
+                    }
+
+                    float dist = length(mvPosition.xyz);
+                    float alpha = smoothstep(1000.0, 600.0, dist);
+                    float nearFade = smoothstep(2.0, 10.0, -mvPosition.z);
+
+                    vAlpha = alpha * nearFade * (0.4 + 0.6 * sin(uTime * 2.0 + aRandom * 100.0));
+                    vColor = vec3(colorMix);
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 uColorCyan;
+                uniform vec3 uColorMagenta;
+
+                varying vec3 vColor;
+                varying float vAlpha;
+
+                void main() {
+                    float d = distance(gl_PointCoord, vec2(0.5));
+                    if (d > 0.5) discard;
+
+                    float strength = pow(1.0 - d * 2.0, 2.0);
+                    vec3 finalColor = mix(uColorCyan, uColorMagenta, vColor.x);
+                    finalColor *= 2.0;
+
+                    gl_FragColor = vec4(finalColor, vAlpha * strength);
+                }
+            `,
+            transparent: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        });
+
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        // --- ANIMATION & MOUSE ---
+        const clock = new THREE.Clock();
+        const mouse = new THREE.Vector2();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+            material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+        });
+
+        // --- BOOK A CALL FORM ---
+        const bookBtn = document.getElementById('book-call-btn');
+        const bookForm = document.getElementById('book-call-form');
+
+        bookBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bookForm.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (bookForm && !bookForm.contains(e.target) && e.target !== bookBtn) {
+                bookForm.classList.remove('open');
+            }
+        });
+
+        function handleBookingSubmit(form, successEl) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                fetch('https://formsubmit.co/ajax/shazadladha@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        email: form.email.value,
+                        description: form.description.value || 'No description provided'
+                    })
+                })
+                .then(r => r.json())
+                .then(() => {
+                    form.reset();
+                    successEl.classList.remove('hidden');
+                    setTimeout(() => successEl.classList.add('hidden'), 3000);
+                })
+                .catch(() => {
+                    successEl.textContent = 'Something went wrong. Try again.';
+                    successEl.classList.remove('hidden');
+                    setTimeout(() => { successEl.classList.add('hidden'); successEl.textContent = "Submitted! We'll be in touch."; }, 3000);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit';
+                });
+            });
+        }
+
+        handleBookingSubmit(
+            document.getElementById('book-call-submit'),
+            document.getElementById('book-call-success')
+        );
+        handleBookingSubmit(
+            document.getElementById('mobile-book-call-submit'),
+            document.getElementById('mobile-book-call-success')
+        );
+        handleBookingSubmit(
+            document.getElementById('growth-book-submit'),
+            document.getElementById('growth-book-success')
+        );
+
+        // --- GROWTH CTA TOGGLE ---
+        const growthBtn = document.getElementById('growth-book-btn');
+        const growthForm = document.getElementById('growth-book-form');
+
+        growthBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            growthForm.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (growthForm && !growthForm.contains(e.target) && !growthBtn.contains(e.target)) {
+                growthForm.classList.remove('open');
+            }
+        });
+
+        // --- MOBILE MENU ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const menuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        };
+
+        menuBtn?.addEventListener('click', toggleMenu);
+        menuClose?.addEventListener('click', toggleMenu);
+        mobileMenu?.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', toggleMenu);
+        });
+
+        // --- SCROLL TRIGGERS ---
+
+        // Cloud -> Sphere
+        gsap.to(material.uniforms.uMixSphere, {
+            value: 1,
+            ease: "power2.inOut",
+            scrollTrigger: {
+                trigger: "#results",
+                start: "top bottom",
+                end: "top center",
+                scrub: 1
+            }
+        });
+
+        // Results CTA text — slides in from bottom-right, slightly before glass panel is centered
+        gsap.fromTo('#results-cta',
+            { opacity: 0, x: 40, y: 40 },
+            {
+                opacity: 1, x: 0, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#results",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Mobile CTA text — slides up from bottom
+        gsap.fromTo('#results-cta-mobile',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#results",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Services CTA text — slides in from bottom-left
+        gsap.fromTo('#services-cta',
+            { opacity: 0, x: -40, y: 40 },
+            {
+                opacity: 1, x: 0, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#services",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Mobile Services CTA text — slides up from bottom
+        gsap.fromTo('#services-cta-mobile',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#services",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Sphere -> Grid
+        const tlGrid = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top bottom",
+                end: "center center",
+                scrub: 1
+            }
+        });
+
+        tlGrid.to(material.uniforms.uMixSphere, { value: 0, duration: 1 }, 0)
+              .to(material.uniforms.uMixGrid, { value: 1, duration: 1 }, 0)
+              .to(points.rotation, { x: 0.3, duration: 1 }, 0)
+              .to(camera.position, { z: 60, y: 10, duration: 1 }, 0);
+
+        // Vertical Grid steps timeline — slides in from left
+        gsap.fromTo('#vertical-grid-steps',
+            { opacity: 0, x: -40, y: 40 },
+            {
+                opacity: 1, x: 0, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#vertical-grid",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Vertical Grid CTA text — slides in from right
+        gsap.fromTo('#vertical-grid-cta',
+            { opacity: 0, x: 40, y: 40 },
+            {
+                opacity: 1, x: 0, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#vertical-grid",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Mobile Vertical Grid CTA text
+        gsap.fromTo('#vertical-grid-cta-mobile',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#vertical-grid",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // Grid -> Vertical Grid
+        const tlVerticalGrid = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#vertical-grid",
+                start: "top bottom",
+                end: "center center",
+                scrub: 1
+            }
+        });
+
+        tlVerticalGrid.to(material.uniforms.uMixGrid, { value: 0, duration: 1 }, 0)
+                      .to(material.uniforms.uMixVerticalGrid, { value: 1, duration: 1 }, 0)
+                      .to(points.rotation, { x: 0, duration: 1 }, 0)
+                      .to(camera.position, { z: 50, y: 0, duration: 1 }, 0);
+
+        // Vertical Grid -> BLAST -> Tunnel
+        const tlTunnel = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#growth",
+                start: "top 80%",
+                end: "bottom bottom",
+                scrub: 0.5,
+                onEnter: () => {
+                    document.getElementById('growth-text').style.opacity = '1';
+                    document.getElementById('growth-text').style.transform = 'scale(1)';
+                    document.getElementById('growth-badge').style.opacity = '1';
+                    document.getElementById('growth-cta').style.opacity = '1';
+                },
+                onLeaveBack: () => {
+                    document.getElementById('growth-text').style.opacity = '0';
+                    document.getElementById('growth-text').style.transform = 'scale(0.5)';
+                    document.getElementById('growth-badge').style.opacity = '0';
+                    document.getElementById('growth-cta').style.opacity = '0';
+                }
+            }
+        });
+
+        tlTunnel.to(material.uniforms.uMixVerticalGrid, { value: 0, duration: 0.5, ease: "power2.in" }, 0)
+                .to(material.uniforms.uMixTunnelSpace, { value: 1, duration: 0.5, ease: "power2.in" }, 0)
+                .to(material.uniforms.uTunnel, { value: 1, duration: 0.1 }, 0.4)
+                .to(material.uniforms.uTunnelSpeed, { value: 1.5, duration: 1, ease: "expo.in" }, 0.4)
+                .to(camera.position, { z: 20, y: 0, duration: 1 }, 0);
+
+
+
+        // --- RENDER LOOP ---
+        const tick = () => {
+            const elapsedTime = clock.getElapsedTime();
+            material.uniforms.uTime.value = elapsedTime;
+
+            if (material.uniforms.uTunnel.value < 0.1) {
+                points.rotation.y = elapsedTime * 0.05 + mouse.x * 0.05;
+                points.rotation.x = mouse.y * 0.05 + (material.uniforms.uMixGrid.value * 0.3);
+            } else {
+                points.rotation.y = 0;
+                points.rotation.x = 0;
+            }
+
+            composer.render();
+            requestAnimationFrame(tick);
+        };
+
+        tick();
+    </script>
+
+</body>
+</html>
