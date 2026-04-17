@@ -507,7 +507,7 @@
             const t = i / count;
             const inc = Math.acos(1 - 2 * t);
             const azimuth = angleIncrement * i;
-            const radius = 22;
+            const radius = 16;
             posSphere[i3] = radius * Math.sin(inc) * Math.cos(azimuth);
             posSphere[i3 + 1] = radius * Math.sin(inc) * Math.sin(azimuth);
             posSphere[i3 + 2] = radius * Math.cos(inc);
