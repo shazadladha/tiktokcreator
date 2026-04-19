@@ -9,6 +9,8 @@
     <meta property="og:description" content="We create high-converting TikTok content for ecommerce brands. Stop the scroll. Start selling.">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="64x64" href="stc_logo_transparent.png">
+    <link rel="apple-touch-icon" href="stc_logo_transparent.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -173,7 +175,7 @@
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-10 py-5 mix-blend-difference text-white/90">
         <a href="#hero" class="flex items-center gap-2.5">
-            <div class="w-3.5 h-3.5 bg-gradient-to-br from-cyan-400 to-fuchsia-500 rounded-[3px]"></div>
+            <img src="stc_logo_transparent.png" alt="Stop the Scroll logo" class="w-10 h-10 object-contain">
             <span class="text-[11px] font-bold tracking-[0.15em] uppercase">Stop the Scroll</span>
         </a>
         <div class="hidden md:flex gap-8 text-[11px] font-medium tracking-[0.1em] uppercase text-white/40">
@@ -257,6 +259,9 @@
                    2px  0   0 black,
                   -2px  0   0 black;"><b>Trusted by 200+ ecommerce brands</b></span>
                 </div>
+            </div>
+            <div class="absolute bottom-6 md:bottom-10 left-0 right-0 flex justify-center">
+                <img src="stc_logo_transparent.png" alt="Stop the Scroll logo" class="w-24 h-24 md:w-44 md:h-44 object-contain opacity-80">
             </div>
 
         </section>
@@ -437,11 +442,6 @@
                 <h2 class="text-[11vw] md:text-9xl font-black tracking-[-0.05em] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-transparent opacity-0 scale-50 transition-all duration-1000" id="growth-text">
                     UNSTOPPABLE
                 </h2>
-                <div class="mt-8 px-6 py-2 rounded-full border border-white/[0.15] bg-black/40 backdrop-blur-md opacity-0 transition-opacity duration-700 delay-300" id="growth-badge">
-                    <span class="text-xs font-medium tracking-[0.2em] uppercase text-cyan-300/80">
-                        Your Growth, Amplified
-                    </span>
-                </div>
                 <div class="mt-10 pointer-events-auto opacity-0 transition-opacity duration-700 delay-500 relative flex flex-col items-center" id="growth-cta">
                     <button id="growth-book-btn" class="group relative px-8 py-3.5 rounded-full cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,240,255,0.25)]">
                         <span class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500"></span>
@@ -462,6 +462,9 @@
                             <p id="growth-book-success" class="text-[10px] text-emerald-400 text-center hidden">Submitted! We'll be in touch.</p>
                         </form>
                     </div>
+                </div>
+                <div class="mt-10 pointer-events-auto opacity-0 transition-opacity duration-700 delay-700" id="growth-logo">
+                    <img src="stc_logo_transparent.png" alt="Stop the Scroll logo" class="w-24 h-24 md:w-44 md:h-44 object-contain opacity-80">
                 </div>
             </div>
         </section>
@@ -932,14 +935,14 @@
                 onEnter: () => {
                     document.getElementById('growth-text').style.opacity = '1';
                     document.getElementById('growth-text').style.transform = 'scale(1)';
-                    document.getElementById('growth-badge').style.opacity = '1';
                     document.getElementById('growth-cta').style.opacity = '1';
+                    document.getElementById('growth-logo').style.opacity = '1';
                 },
                 onLeaveBack: () => {
                     document.getElementById('growth-text').style.opacity = '0';
                     document.getElementById('growth-text').style.transform = 'scale(0.5)';
-                    document.getElementById('growth-badge').style.opacity = '0';
                     document.getElementById('growth-cta').style.opacity = '0';
+                    document.getElementById('growth-logo').style.opacity = '0';
                 }
             }
         });
